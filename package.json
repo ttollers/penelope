@@ -1,0 +1,19 @@
+{
+  "name": "penelope",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/tm-ep/penelope.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/tm-ep/penelope#readme",
+  "devDependencies": {
+    "ramda": "^0.23.0"
+  }
+}
