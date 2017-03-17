@@ -31,8 +31,19 @@ const findNgramIn = R.curry((a, b) => {
   }, -1, R.range(0, R.length(b) - R.length(a) + 1));
 });
 
+const sanitizeSentence = R.compose(
+  R.trim,
+  R.replace(/\n/g, ""),
+  R.replace(/&[^;]+;/g, ''),
+  R.replace(/(<([^>]+)>)/ig, ""),
+  R.replace(/^.*<p[^>]*>/m, '')
+);
+
+
 module.exports = R.curry((locations, textArray) => {
   return hl(textArray)
+    .map(sanitizeSentence)
+    .filter(x => x.length > 0)
     .map(sentence => (sentence.replace(/\./g, '') + ' '), R.compose(R.join(' '), R.tail, R.split(/\s+/)))
     .map(capFilter)
     .reduce1(R.concat)

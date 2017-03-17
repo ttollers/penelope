@@ -8,14 +8,6 @@ const docClient = new AWS.DynamoDB.DocumentClient({
 });
 const dbStreams = hl.streamifyAll(docClient);
 
-const sanitizeSentence = R.compose(
-  R.trim,
-  R.replace(/\n/g, ""),
-  R.replace(/&[^;]+;/g, ''),
-  R.replace(/(<([^>]+)>)/ig, ""),
-  R.replace(/^.*<p[^>]*>/m, '')
-);
-
 module.exports = item => dbStreams.getStream({
     TableName: "EscenicStateStore-prod-article",
     Key: item
@@ -23,7 +15,7 @@ module.exports = item => dbStreams.getStream({
   .pluck("Item")
   .map(item => R.reduce(R.concat, [], [
     [item.Title],
-    [sanitizeSentence(item.Fields.leadtext)],
-    item.Fields.body.split("</p>").map(sanitizeSentence).filter(x => x.length > 0)
+    [item.Fields.leadtext],
+    item.Fields.body.split("</p>")
   ]))
   .sequence();
