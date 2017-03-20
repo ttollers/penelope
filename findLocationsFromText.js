@@ -4,8 +4,8 @@ const hl = require("highland");
 const R = require("ramda");
 
 const indicatorWords = [
-  "in", "near", "from", "around", "of", "on", "beside", "at",
-  "Street", "St", "Road", "Rd", "Crescent", "Crsnt", "Avenue", "Av", "Court", "Crt", "Close", "Cls"
+  "in", "near", "from", "around", "of", "on", "beside", "at", "to", "between",
+  "Street", "St", "Road", "Rd", "Crescent", "Crsnt", "Avenue", "Av", "Court", "Crt", "Close", "Cls", "Hill", "Way", "School"
 ];
 
 const capFilter = R.compose(
@@ -22,7 +22,9 @@ const findNgramIn = R.curry((a, b) => {
   if (R.length(a) > R.length(b)) {
     return -1;
   }
-  return R.reduce((foundAtIndex, bIndex) => R.reduce((matched, aIndex) => matched && a[aIndex] === b[bIndex + aIndex], true, R.range(0, R.length(a))) ? bIndex : foundAtIndex, -1, R.range(0, R.length(b) - R.length(a) + 1));
+  return R.reduce((foundAtIndex, bIndex) =>
+    R.reduce((matched, aIndex) =>
+      matched && a[aIndex] === b[bIndex + aIndex], true, R.range(0, R.length(a))) ? bIndex : foundAtIndex, -1, R.range(0, R.length(b) - R.length(a) + 1));
 });
 
 const sanitizeSentence = R.compose(
