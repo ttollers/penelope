@@ -5,7 +5,7 @@ const R = require("ramda");
 
 const indicatorWords = [
   "in", "near", "from", "around", "of", "on", "beside", "at", "to", "between",
-  "Street", "St", "Road", "Rd", "Crescent", "Crsnt", "Avenue", "Av", "Court", "Crt", "Close", "Cls", "Hill", "Way", "School"
+  "Street", "St", "Road", "Rd", "Crescent", "Crsnt", "Avenue", "Av", "Court", "Crt", "Close", "Cls", "Hill", "Way", "School", "Rise"
 ];
 
 const capFilter = R.compose(
