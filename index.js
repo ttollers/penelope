@@ -5,5 +5,5 @@ const sanitizeText = require("./sanitizeText");
 
 module.exports = {
   getLocations: findLocationsFromText,
-  sanitizeText: sanitizeText,
+  sanitizeText: sanitizeText
 };
