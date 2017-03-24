@@ -2,6 +2,7 @@
 
 const hl = require("highland");
 const R = require("ramda");
+const sanitizeText = require("./sanitizeText");
 
 const indicatorWords = [
   "in", "near", "from", "around", "of", "on", "beside", "at", "to", "between",
@@ -27,17 +28,8 @@ const findNgramIn = R.curry((a, b) => {
       matched && a[aIndex] === b[bIndex + aIndex], true, R.range(0, R.length(a))) ? bIndex : foundAtIndex, -1, R.range(0, R.length(b) - R.length(a) + 1));
 });
 
-const sanitizeSentence = R.compose(
-  R.trim,
-  R.replace(/\n/g, ""),
-  R.replace(/&[^;]+;/g, ""),
-  R.replace(/(<([^>]+)>)/ig, ""),
-  R.replace(/^.*<p[^>]*>/m, "")
-);
-
-
 module.exports = R.curry((locations, textArray) => hl(textArray)
-  .map(sanitizeSentence)
+  .map(sanitizeText)
   .filter(x => x.length > 0)
   .map(sentence => (`${sentence.replace(/\./g, "")  } `), R.compose(R.join(" "), R.tail, R.split(/\s+/)))
   .map(capFilter)
