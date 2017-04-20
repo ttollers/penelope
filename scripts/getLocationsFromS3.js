@@ -9,7 +9,7 @@ const getFromS3 = hl.wrapCallback((parms, callback) => {
   s3.getObject(parms, callback);
 });
 
-module.exports = getFromS3({
+module.exports = () => getFromS3({
   Bucket: "tm-ep-inyourarea-locations",
   Key: "csv/uk-towns.csv"
 })
@@ -20,5 +20,4 @@ module.exports = getFromS3({
   .sequence()
   .reject(R.isEmpty)
   .map(R.split(','))
-  .map(R.slice(1, 3))
-  .map(R.map(R.compose(R.head, R.split(' / '))))
+  .map(R.prop(1));

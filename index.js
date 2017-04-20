@@ -1,9 +1,10 @@
 "use strict";
 
-const findLocationsFromText = require("./findLocationsFromText");
-const sanitizeText = require("./sanitizeText");
+const findLocationsFromText = require("./src/findLocationsFromText");
+const util = require("./src/util");
 
 module.exports = {
   getLocations: findLocationsFromText,
-  sanitizeText: sanitizeText
+  orderLocationsByLength: util.orderLocationsByLength,
+  sanitizeText: util.sanitizeText
 };

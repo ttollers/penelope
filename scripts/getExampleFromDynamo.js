@@ -1,8 +1,10 @@
 "use strict";
 
 const R = require("ramda");
+const getLocationsFromS3 = require("./getLocationsFromS3");
 const hl = require("highland");
 const AWS = require('aws-sdk');
+
 const docClient = new AWS.DynamoDB.DocumentClient({
   "region": "eu-west-1"
 });
