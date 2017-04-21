@@ -6,7 +6,7 @@ const getExampleFromDynamo = require("../scripts/getExampleFromDynamo");
 
 // this test is skipped by default as it uses external resources
 // this is more uses to be able to run function from end to end with real data
-describe("index()", function() {
+xdescribe("index()", function() {
 
   this.timeout(60000);
   
