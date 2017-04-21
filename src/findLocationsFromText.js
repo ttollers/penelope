@@ -25,4 +25,4 @@ module.exports = R.curry((sortedLocations, textArray) => {
     })
     .pluck("location")
     .uniq();
-});q
+});
