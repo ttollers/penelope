@@ -19,10 +19,10 @@ module.exports = R.curry((sortedLocations, textArray) => {
     .map(util.takeWordsBeforeAndAfter)
     .sequence()
     .filter(item => {
-      const matchesBefores = R.any(R.flip(R.contains)(indicatorWordsBefore))(item.before);
-      if (matchesBefores) return true;
-      return R.any(R.flip(R.contains)(indicatorWordsAfter))(item.after);
+      const matchesBefore = R.any(R.flip(R.contains)(indicatorWordsBefore))(item.before);
+      if (!matchesBefore) return false;
+      return !R.any(R.flip(R.contains)(indicatorWordsAfter))(R.take(1, item.after));
     })
     .pluck("location")
     .uniq();
-});
+});q

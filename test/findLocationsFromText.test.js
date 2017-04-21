@@ -20,14 +20,13 @@ describe("findLocationsFromText()", () => {
   });
 
 
-  it("Should match Aston because of word after", done => {
+  it("Should not match Aston because of word after", done => {
 
     const textArray = require("./fixtures/basic2.json");
 
     findLocationsFromText(locations, textArray)
       .toArray(res => {
-        assert.equal(res.length, 1);
-        assert.equal(res[0], "Aston");
+        assert.equal(res.length, 0);
         done();
       });
   });
