@@ -16,3 +16,4 @@ An array of locations can be sorted using:
 penelope.orderLocationsByLength(array);
 ```
 
+Penelope is a short term fix for more mature NLP solutions. It looks at words before and after the matched location to more accurately establish that it's not a persons name or road name or any other use the word may have.
