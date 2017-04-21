@@ -30,4 +30,16 @@ describe("findLocationsFromText()", () => {
         done();
       });
   });
+
+  it("should handle punctuation correctly", done => {
+
+    const textArray = require("./fixtures/punctuationBug.json");
+
+    findLocationsFromText(locations, textArray)
+      .toArray(res => {
+        assert.equal(res.length, 0);
+        done();
+      });
+  });
+
 });

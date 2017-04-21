@@ -70,7 +70,7 @@ describe("takeWordsBeforeAndAfter()", () => {
 
   it("should split on locations with punctuation chars", () => {
     const given = {
-      text: "This should be before Aston-Villa this is after",
+      text: "This; should. be before Aston-Villa this, is: after",
       locations: ["Aston-Villa"]
     };
     const actual = takeWordsBeforeAndAfter(given);

@@ -2,6 +2,12 @@
 
 const R = require("ramda");
 
+// purgeLeadingAndTrailingPunctuation :: String -> String
+const purgeLeadingAndTrailingPunctuation = R.compose(
+  R.replace(/^[^a-zA-Z0-9]/, ""),
+  R.replace(/[^a-zA-Z0-9]$/, "")
+);
+
 // orderLocationsByLength :: [String] -> [String]
 exports.orderLocationsByLength = R.sort((a, b) => b.length - a.length);
 
@@ -10,7 +16,7 @@ exports.matchWords = R.curry((townList, text) => {
   const townsInRegex = townList.map(x => x.trim()).join("|");
   const regexTest = new RegExp(`(^|[^a-zA-Z0-9])(${townsInRegex})([^a-zA-Z0-9]|$)`, "g");
   const matches = text.match(regexTest) || [];
-  const locationsMatched = R.uniq(matches.filter(i => i).map(x => x.replace(/^[^a-zA-Z0-9]/, "").replace(/[^a-zA-Z0-9]$/, ""))) || [];
+  const locationsMatched = R.uniq(matches.filter(i => i).map(purgeLeadingAndTrailingPunctuation)) || [];
   return {
     text: text,
     locations: locationsMatched
@@ -23,7 +29,13 @@ exports.takeWordsBeforeAndAfter = textWithLocationsObject => {
   return textWithLocationsObject.locations
     .map(x => x.trim())
     .map(location => {
-      const split = text.split(location).map(R.split(/\s+/)).map(R.reject(R.isEmpty));
+      const split = text.split(location)
+        .map(R.split(/\s+/))
+        .map(R.compose(
+          R.map(purgeLeadingAndTrailingPunctuation),
+          R.reject(R.isEmpty))
+        );
+
       return {
         location: location,
         before: R.takeLast(6, split[0]),
