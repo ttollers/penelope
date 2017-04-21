@@ -7,7 +7,7 @@ describe("findLocationsFromText()", () => {
 
   const locations = ["Aston Villa", "Aston", "Wandsworth"];
 
-  it("Should match Aston Villa and not Aston or Wandsworth (very basic)", (done) => {
+  it("Should match Aston Villa and not Aston or Wandsworth (very basic)", done => {
 
     const textArray = require("./fixtures/basic1.json");
 
@@ -20,7 +20,7 @@ describe("findLocationsFromText()", () => {
   });
 
 
-  it("Should match Aston because of word after", (done) => {
+  it("Should match Aston because of word after", done => {
 
     const textArray = require("./fixtures/basic2.json");
 

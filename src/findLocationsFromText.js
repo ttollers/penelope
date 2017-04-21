@@ -12,7 +12,7 @@ const indicatorWordsAfter = require("./indicatorWordsAfter.json");
 module.exports = R.curry((sortedLocations, textArray) => {
   return hl(textArray)
     .map(util.sanitizeText)
-    .filter(x => x.length > 0)
+    .reject(R.isEmpty)
     .map(sentence => (`${sentence.replace(/\./g, "")  } `), R.compose(R.join(" "), R.tail, R.split(/\s+/)))
     .map(util.matchWords(sortedLocations))
     .reject(R.compose(R.isEmpty, R.prop("locations")))
@@ -24,5 +24,5 @@ module.exports = R.curry((sortedLocations, textArray) => {
       return R.any(R.flip(R.contains)(indicatorWordsAfter))(item.after);
     })
     .pluck("location")
-    .uniq()
+    .uniq();
 });

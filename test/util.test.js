@@ -11,14 +11,14 @@ describe("matchWords()", () => {
     const text = "This text should not match";
     const actual = matchWords(locations, text);
     assert.deepEqual(actual.locations, []);
-    assert.equal(actual.text, text)
+    assert.equal(actual.text, text);
   });
 
   it("Should match Aston", () => {
     const text = "This text should match Aston";
     const actual = matchWords(locations, text);
     assert.deepEqual(actual.locations, ["Aston"]);
-    assert.equal(actual.text, text)
+    assert.equal(actual.text, text);
   });
 });
 
@@ -29,7 +29,7 @@ describe("orderLocationsByLength()", () => {
 
   it("should return order list by length", () => {
     const actual = orderLocationsByLength(locations);
-    assert.deepEqual(actual, ['Aston Villa', 'Wandsworth', 'Aston']);
+    assert.deepEqual(actual, ["Aston Villa", "Wandsworth", "Aston"]);
   });
 
 });
@@ -47,8 +47,8 @@ describe("takeWordsBeforeAndAfter()", () => {
     const actual = takeWordsBeforeAndAfter(given);
     assert.equal(actual.length, 1);
     assert.equal(actual[0].location, "Aston");
-    assert.deepEqual(actual[0].before, ['This', 'should', 'be', 'before']);
-    assert.deepEqual(actual[0].after, ['this', 'is', 'after']);
+    assert.deepEqual(actual[0].before, ["This", "should", "be", "before"]);
+    assert.deepEqual(actual[0].after, ["this", "is", "after"]);
   });
 
   it("should still split correctly with more than one location", () => {
@@ -60,12 +60,12 @@ describe("takeWordsBeforeAndAfter()", () => {
     assert.equal(actual.length, 2);
 
     assert.equal(actual[0].location, "Aston");
-    assert.deepEqual(actual[0].before, ['This', 'should', 'be', 'before']);
-    assert.deepEqual(actual[0].after, ['this', 'is', 'between', 'Wandsworth', 'this', 'if']);
+    assert.deepEqual(actual[0].before, ["This", "should", "be", "before"]);
+    assert.deepEqual(actual[0].after, ["this", "is", "between", "Wandsworth", "this", "if"]);
 
     assert.equal(actual[1].location, "Wandsworth");
-    assert.deepEqual(actual[1].before, ['be', 'before', 'Aston', 'this', 'is', 'between']);
-    assert.deepEqual(actual[1].after, ['this', 'if', 'after', 'all']);
+    assert.deepEqual(actual[1].before, ["be", "before", "Aston", "this", "is", "between"]);
+    assert.deepEqual(actual[1].after, ["this", "if", "after", "all"]);
   });
 
   it("should split on locations with punctuation chars", () => {
@@ -76,9 +76,9 @@ describe("takeWordsBeforeAndAfter()", () => {
     const actual = takeWordsBeforeAndAfter(given);
     assert.equal(actual.length, 1);
     assert.equal(actual[0].location, "Aston-Villa");
-    assert.deepEqual(actual[0].before, ['This', 'should', 'be', 'before']);
-    assert.deepEqual(actual[0].after, ['this', 'is', 'after']);
-  })
+    assert.deepEqual(actual[0].before, ["This", "should", "be", "before"]);
+    assert.deepEqual(actual[0].after, ["this", "is", "after"]);
+  });
 
 });
 

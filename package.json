@@ -3,6 +3,9 @@
   "version": "2.0.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive && eslint ."
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/tm-ep/penelope.git"
@@ -12,7 +15,9 @@
   "homepage": "https://bitbucket.org/tm-ep/penelope#readme",
   "devDependencies": {
     "aws-sdk": "^2.28.0",
-    "chai": "^3.5.0"
+    "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "mocha": "^3.2.0"
   },
   "dependencies": {
     "highland": "^2.10.2",

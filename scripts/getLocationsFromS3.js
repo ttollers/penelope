@@ -2,7 +2,7 @@
 
 const hl = require("highland");
 const R = require("ramda");
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 const s3 = new AWS.S3();
 
 const getFromS3 = hl.wrapCallback((parms, callback) => {
@@ -19,5 +19,5 @@ module.exports = () => getFromS3({
   .map(R.tail)
   .sequence()
   .reject(R.isEmpty)
-  .map(R.split(','))
+  .map(R.split(","))
   .map(R.prop(1));
