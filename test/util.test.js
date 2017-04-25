@@ -26,7 +26,7 @@ describe("matchWords()", () => {
     const actual = matchWords(locations, text);
     assert.deepEqual(actual.locations, ["Stratford Upon-Avon"]);
     assert.equal(actual.text, text);
-  })
+  });
 });
 
 describe("orderLocationsByLength()", () => {
@@ -38,7 +38,6 @@ describe("orderLocationsByLength()", () => {
     const actual = orderLocationsByLength(locations);
     assert.deepEqual(actual, ["Aston Villa", "Wandsworth", "Aston"]);
   });
-
 });
 
 
