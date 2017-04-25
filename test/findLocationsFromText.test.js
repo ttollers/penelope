@@ -42,4 +42,15 @@ describe("findLocationsFromText()", () => {
       });
   });
 
+  it("should match locations that have / haven't got hyphens", done => {
+
+    const textArray = require("./fixtures/matchHyphens.json");
+    findLocationsFromText(locations, textArray)
+      .toArray(res => {
+        assert.equal(res.length, 1);
+        assert.equal(res[0], "Aston Villa");
+        done();
+      });
+  });
+
 });

@@ -20,13 +20,6 @@ describe("matchWords()", () => {
     assert.deepEqual(actual.locations, ["Aston"]);
     assert.equal(actual.text, text);
   });
-
-  it("Should match locations with spaces over hyphens and vice versa", () => {
-    const text = "Should match Stratford Upon-Avon";
-    const actual = matchWords(locations, text);
-    assert.deepEqual(actual.locations, ["Stratford Upon-Avon"]);
-    assert.equal(actual.text, text);
-  });
 });
 
 describe("orderLocationsByLength()", () => {
