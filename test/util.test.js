@@ -5,7 +5,7 @@ const assert = require("chai").assert;
 describe("matchWords()", () => {
 
   const matchWords = require("../src/util").matchWords;
-  const locations = ["Aston", "Wandsworth"];
+  const locations = ["Aston", "Wandsworth", "Stratford-Upon Avon"];
 
   it("Should not match", () => {
     const text = "This text should not match";
@@ -20,6 +20,13 @@ describe("matchWords()", () => {
     assert.deepEqual(actual.locations, ["Aston"]);
     assert.equal(actual.text, text);
   });
+
+  it("Should match locations with spaces over hyphens and vice versa", () => {
+    const text = "Should match Stratford Upon-Avon";
+    const actual = matchWords(locations, text);
+    assert.deepEqual(actual.locations, ["Stratford Upon-Avon"]);
+    assert.equal(actual.text, text);
+  })
 });
 
 describe("orderLocationsByLength()", () => {

@@ -13,7 +13,11 @@ exports.orderLocationsByLength = R.sort((a, b) => b.length - a.length);
 
 // matchWords :: [String] -> String -> {text: String, locations: [String]}
 exports.matchWords = R.curry((townList, text) => {
-  const townsInRegex = townList.map(x => x.trim()).join("|");
+  const townsInRegex = townList
+    .map(R.trim)
+    .map(R.replace(/\s|-/g, "[\\s|-]"))
+    .join("|");
+
   const regexTest = new RegExp(`(^|[^a-zA-Z0-9])(${townsInRegex})([^a-zA-Z0-9]|$)`, "g");
   const matches = text.match(regexTest) || [];
   const locationsMatched = R.uniq(matches.filter(i => i).map(purgeLeadingAndTrailingPunctuation)) || [];
