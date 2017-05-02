@@ -53,4 +53,16 @@ describe("findLocationsFromText()", () => {
       });
   });
 
+  it("should match locations with apostrophes", done => {
+    const textArray = [
+      "Should match in King's Norton"
+    ];
+    findLocationsFromText(["Kings Norton"], textArray)
+      .toArray(res => {
+        assert.equal(res.length, 1);
+        assert.equal(res[0], "Kings Norton");
+        done();
+      });
+  });
+
 });

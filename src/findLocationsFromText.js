@@ -12,7 +12,10 @@ const indicatorWordsAfter = require("./indicatorWordsAfter.json");
 module.exports = R.curry((sortedLocations, textArray) => {
   return hl(textArray)
     .map(util.sanitizeText)
-    .map(R.replace(/-/g, " "))
+    .map(R.compose(
+      R.replace(/-/g, " "),
+      R.replace(/'/g, "")
+    ))
     .reject(R.isEmpty)
     .map(sentence => (`${sentence.replace(/\./g, "")  } `), R.compose(R.join(" "), R.tail, R.split(/\s+/)))
     .map(util.matchWords(sortedLocations))
