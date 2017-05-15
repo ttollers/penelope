@@ -51,8 +51,9 @@ exports.takeWordsBeforeAndAfter = textWithLocationsObject => {
 // sanitizeText :: String -> String
 exports.sanitizeText = R.compose(
   R.trim,
-  R.replace(/\n/g, ""),
+  R.replace(/\n/g, ". "),
   R.replace(/&[^;]+;/g, ""),
   R.replace(/(<([^>]+)>)/ig, ""),
   R.replace(/^.*<p[^>]*>/m, "")
 );
+
