@@ -94,6 +94,6 @@ describe("sanitizeText()", () => {
 
   it("should clean a string", () => {
     const given = sanitizeText("  <p>Some dodgey !@£$%^&*() tezt</p>   \n   <br>      ");
-    assert.equal(given, "Some dodgey !@£$%^&*() tezt");
+    assert.equal(given, "Some dodgey !@£$%^&*() tezt   .");
   });
 });
