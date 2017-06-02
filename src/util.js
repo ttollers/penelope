@@ -28,25 +28,32 @@ exports.matchWords = R.curry((townList, text) => {
 });
 
 // takeWordsBeforeAndAfter :: {text: String, locations: [String]} -> [{location: String, before: [String], after: [String]}]
-exports.takeWordsBeforeAndAfter = textWithLocationsObject => {
+exports.takeWordsBeforeAndAfter = R.curry((beforeCountToCheck, afterCountToCheck, textWithLocationsObject) => {
   const text = textWithLocationsObject.text;
   return textWithLocationsObject.locations
     .map(x => x.trim())
     .map(location => {
-      const split = text.split(location)
+      const splits = text.split(location)
         .map(R.split(/\s+/))
         .map(R.compose(
           R.map(purgeLeadingAndTrailingPunctuation),
           R.reject(R.isEmpty))
         );
-
-      return {
-        location: location,
-        before: R.takeLast(6, split[0]),
-        after: R.take(6, split[1])
-      };
+      
+      return splits.reduce((acc, words) => {
+          if(acc.length < splits.length - 1) {
+            acc[acc.length] = {
+              location: location,
+              before: R.takeLast(beforeCountToCheck, words)
+            };
+          }
+          if(acc.length > 0) {
+            acc[acc.length -1].after = R.take(afterCountToCheck, words)
+          }
+          return acc;
+        }, []);
     });
-};
+});
 
 // sanitizeText :: String -> String
 exports.sanitizeText = R.compose(

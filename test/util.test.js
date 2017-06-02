@@ -43,7 +43,7 @@ describe("takeWordsBeforeAndAfter()", () => {
       text: "This should be before Aston this is after",
       locations: ["Aston"]
     };
-    const actual = takeWordsBeforeAndAfter(given);
+    const actual = takeWordsBeforeAndAfter(6,6,given)[0];
     assert.equal(actual.length, 1);
     assert.equal(actual[0].location, "Aston");
     assert.deepEqual(actual[0].before, ["This", "should", "be", "before"]);
@@ -55,16 +55,17 @@ describe("takeWordsBeforeAndAfter()", () => {
       text: "This should be before Aston this is between Wandsworth this if after all",
       locations: ["Aston", "Wandsworth"]
     };
-    const actual = takeWordsBeforeAndAfter(given);
+    const actual = takeWordsBeforeAndAfter(6,6,given);
+
     assert.equal(actual.length, 2);
 
-    assert.equal(actual[0].location, "Aston");
-    assert.deepEqual(actual[0].before, ["This", "should", "be", "before"]);
-    assert.deepEqual(actual[0].after, ["this", "is", "between", "Wandsworth", "this", "if"]);
+    assert.equal(actual[0][0].location, "Aston");
+    assert.deepEqual(actual[0][0].before, ["This", "should", "be", "before"]);
+    assert.deepEqual(actual[0][0].after, ["this", "is", "between", "Wandsworth", "this", "if"]);
 
-    assert.equal(actual[1].location, "Wandsworth");
-    assert.deepEqual(actual[1].before, ["be", "before", "Aston", "this", "is", "between"]);
-    assert.deepEqual(actual[1].after, ["this", "if", "after", "all"]);
+    assert.equal(actual[1][0].location, "Wandsworth");
+    assert.deepEqual(actual[1][0].before, ["be", "before", "Aston", "this", "is", "between"]);
+    assert.deepEqual(actual[1][0].after, ["this", "if", "after", "all"]);
   });
 
   it("should split on locations with punctuation chars", () => {
@@ -72,7 +73,7 @@ describe("takeWordsBeforeAndAfter()", () => {
       text: "This; should. be before Aston-Villa this, is: after",
       locations: ["Aston-Villa"]
     };
-    const actual = takeWordsBeforeAndAfter(given);
+    const actual = takeWordsBeforeAndAfter(6,6,given)[0];
     assert.equal(actual.length, 1);
     assert.equal(actual[0].location, "Aston-Villa");
     assert.deepEqual(actual[0].before, ["This", "should", "be", "before"]);
