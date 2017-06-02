@@ -21,8 +21,8 @@ module.exports = R.curry((indicatorWordsBefore, indicatorWordsAfter, sortedLocat
     .flatten()
     .filter(item => {
       const matchesBefore = R.any(R.flip(R.contains)(indicatorWordsBefore))(item.before);
-      if (!matchesBefore) return false;
-      return !R.any(R.flip(R.contains)(indicatorWordsAfter))(R.take(1, item.after));
+      if (matchesBefore) return false;
+      return !R.any(R.flip(R.contains)(indicatorWordsAfter))(item.after);
     })
     .pluck("location")
     .uniq();
