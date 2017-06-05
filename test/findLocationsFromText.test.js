@@ -9,9 +9,9 @@ describe("getLocations()", () => {
 
   it("Should match Aston Villa and not Aston or Wandsworth (very basic)", done => {
 
-    const textArray = require("./fixtures/basic1.json");
+    const text = "<P>It closed its base Aston Villa Cross on March 16, 2007, amid cries from people – both locals and from afar – that they would never buy the famous sauce ever again.</P>";
 
-    getLocations(locations, textArray)
+    getLocations(locations, Array.of(text))
       .toArray(res => {
         assert.equal(res.length, 1);
         assert.equal(res[0], "Aston Villa");
@@ -44,8 +44,8 @@ describe("getLocations()", () => {
 
   it("should match locations that have / haven't got hyphens", done => {
 
-    const textArray = require("./fixtures/matchHyphens.json");
-    getLocations(locations, textArray)
+    const text = "This should match Aston-Villa please";
+    getLocations(locations, Array.of(text))
       .toArray(res => {
         assert.equal(res.length, 1);
         assert.equal(res[0], "Aston Villa");
@@ -55,7 +55,7 @@ describe("getLocations()", () => {
 
   it("should match locations with apostrophes", done => {
     const textArray = [
-      "Should match in King's Norton"
+      "Should match King's Norton"
     ];
     getLocations(["Kings Norton"], textArray)
       .toArray(res => {
@@ -76,5 +76,14 @@ describe("getLocations()", () => {
         done();
       });
   });
+
+  it0("should no filter if no matches", done => {
+    const text = "Should match even though the town doesn't exist here";
+    getLocations(locations, Array.of(text))
+      .toArray(res => {
+        assert.isTrue(res.length > 0);
+        done();
+      })
+  })
 
 });

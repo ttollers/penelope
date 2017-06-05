@@ -17,12 +17,15 @@ module.exports = R.curry((indicatorWordsBefore, indicatorWordsAfter, sortedLocat
     .map(sentence => (`${sentence.replace(/\./g, "")  } `), R.compose(R.join(" "), R.tail, R.split(/\s+/)))
     .map(util.matchWords(sortedLocations))
     .reject(R.compose(R.isEmpty, R.prop("locations")))
-    .map(util.takeWordsBeforeAndAfter(1, 1))
+    .map(util.takeWordsBeforeAndAfter)
     .flatten()
+    // if no matches we allow as using dandelion and assuming it's clever with other words
+    .otherwise(sortedLocations.map(R.objOf("location")))
+
     .filter(item => {
-      const matchesBefore = R.any(R.flip(R.contains)(indicatorWordsBefore))(item.before);
+      const matchesBefore = R.contains(item.before, indicatorWordsBefore);
       if (matchesBefore) return false;
-      return !R.any(R.flip(R.contains)(indicatorWordsAfter))(item.after);
+      return !R.contains(item.after, indicatorWordsAfter);
     })
     .pluck("location")
     .uniq();
