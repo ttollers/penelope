@@ -77,7 +77,7 @@ describe("getLocations()", () => {
       });
   });
 
-  it0("should no filter if no matches", done => {
+  it("should no filter if no matches", done => {
     const text = "Should match even though the town doesn't exist here";
     getLocations(locations, Array.of(text))
       .toArray(res => {
